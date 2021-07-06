@@ -3,9 +3,9 @@
 from time import sleep
 
 
-def escolha():
+def chooice():
     """
-    -> Deve-se usar as variáveis 'pc' e 'user' no codigo global
+    -> Must declare var 'pc' and 'user'
     :return: pc, user
     """
     global pc
@@ -22,10 +22,10 @@ def escolha():
 
 def verifywin(item1, item2):
     """
-    -> Verifica quem venceu.
-    :param item1: máquina
-    :param item2: jogador
-    :return: 'Loss' se item1 vencer, 'Win' se item1 perder ou 'Draw' se empatar
+    -> Check who won.
+    :param item1: machine
+    :param item2: player
+    :return: 'Loss' if item1 win or 'Win' if item2 win
     """
 
     if item1 == 'tesoura' and item2 == 'papel':
@@ -44,26 +44,26 @@ def verifywin(item1, item2):
         return 'Draw'
 
 
-def continuar():
+def continuue():
     from os import system, name
-    resposta = input('\nDeseja jogar novamente? <S>/<N> ').strip().upper()
+    answer = input('\nDeseja jogar novamente? <S>/<N> ').strip().upper()
 
-    while resposta != 'N' and resposta != 'S':
+    while answer != 'N' and answer != 'S':
         print(f'{red}Opção inválida!{noColor}')
-        resposta = input('\nDeseja jogar novamente? <S>/<N> ').strip().upper()
-    if resposta == 'N':
+        answer = input('\nDeseja jogar novamente? <S>/<N> ').strip().upper()
+    if answer == 'N':
         system('cls' if name == 'nt' else 'clear')
         return False
-    elif resposta == 'S':
+    elif answer == 'S':
         system('cls' if name == 'nt' else 'clear')
         return True
 
 
-def encerramento(wins, losses, draw):
+def ending(wins, defeats, draws):
     print('=' * 9, f'{"Jogo encerrado":^6}', ('=' * 9))
     print(f'{green}Vitórias: \t{wins}'
-          f'\n{red}Derrotas: \t{losses}'
-          f'\n{blue}Empates: \t{draw}{noColor}')
+          f'\n{red}Derrotas: \t{defeats}'
+          f'\n{blue}Empates: \t{draws}{noColor}')
     print('=' * 9, f'{"Volte sempre!":^6}', ('=' * 9))
 
 
@@ -73,16 +73,16 @@ blue = '\033[34m'
 yellow = '\033[33m'
 noColor = '\033[m'
 
-perdas = 0
-vitorias = 0
-empates = 0
+defeats = 0
+wins = 0
+draws = 0
 pc = ''
 user = ''
 
 print('=' * 9, f'{"JOKENPÔ":^6}', ('=' * 9))
 
 while True:
-    escolha()
+    chooice()
 
     print('JO...')
     sleep(1)
@@ -96,18 +96,18 @@ while True:
     resultado = verifywin(pc, user)
     if resultado == "Win":
         print(f'{green}Você venceu!{noColor}')
-        vitorias += 1
+        wins += 1
     elif resultado == 'Loss':
         print(f'{red}Você perdeu...{noColor}')
-        perdas += 1
+        defeats += 1
     elif resultado == 'Draw':
         print(f'{blue}Empatou{noColor}')
-        empates += 1
+        draws += 1
 
-    ans = continuar()
+    ans = continuue()
     if not ans:
         break
     else:
         continue
 
-encerramento(vitorias, perdas, empates)
+ending(wins, defeats, draws)
